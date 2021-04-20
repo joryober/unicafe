@@ -4,11 +4,21 @@ const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const Statistic = ({ name, count }) => {
-  return (
+const Statistics = ({ statistics }) => {
+  statistics = statistics.map((statistic) => (
     <p>
-      {name} {count}
+      {statistic.name} {statistic.count}
     </p>
+  ));
+  return (
+    <>
+      {statistics[0]}
+      {statistics[1]}
+      {statistics[2]}
+      {statistics[3]}
+      {statistics[4]}
+      {statistics[5]}
+    </>
   );
 };
 
@@ -17,6 +27,37 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+
+  let statistics = [
+    {
+      name: "good",
+      count: good,
+    },
+    {
+      name: "neutral",
+      count: neutral,
+    },
+    {
+      name: "bad",
+      count: bad,
+    },
+    {
+      name: "all",
+      count: good + neutral + bad,
+    },
+    {
+      name: "average",
+      count:
+        good + neutral + bad > 0 ? (good - bad) / (good + neutral + bad) : 0,
+    },
+    {
+      name: "positive",
+      count:
+        good + neutral + bad > 0
+          ? (good / (good + neutral + bad)) * 100 + " %"
+          : 0 + " %",
+    },
+  ];
 
   return (
     <div>
@@ -27,24 +68,7 @@ const App = () => {
       <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
 
       <h1>statistics</h1>
-      <Statistic name={"good"} count={good} />
-      <Statistic name={"neutral"} count={neutral} />
-      <Statistic name={"bad"} count={bad} />
-      <Statistic name={"all"} count={good + neutral + bad} />
-      <Statistic
-        name={"average"}
-        count={
-          good + neutral + bad > 0 ? (good - bad) / (good + neutral + bad) : 0
-        }
-      />
-      <Statistic
-        name={"positive"}
-        count={
-          good + neutral + bad > 0
-            ? (good / (good + neutral + bad)) * 100 + " %"
-            : 0 + " %"
-        }
-      />
+      <Statistics statistics={statistics} />
     </div>
   );
 };
