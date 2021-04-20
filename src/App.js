@@ -6,9 +6,10 @@ const Button = ({ handleClick, text }) => {
 
 const Statistic = ({ name, count }) => {
   return (
-    <p>
-      {name} {count}
-    </p>
+    <tr>
+      <td>{name}</td>
+      <td>{count}</td>
+    </tr>
   );
 };
 
@@ -38,24 +39,30 @@ const App = () => {
       <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
 
       <h1>statistics</h1>
-      <Statistic name={"good"} count={good} />
-      <Statistic name={"neutral"} count={neutral} />
-      <Statistic name={"bad"} count={bad} />
-      <Statistic name={"all"} count={good + neutral + bad} />
-      <Statistic
-        name={"average"}
-        count={
-          good + neutral + bad > 0 ? (good - bad) / (good + neutral + bad) : 0
-        }
-      />
-      <Statistic
-        name={"positive"}
-        count={
-          good + neutral + bad > 0
-            ? (good / (good + neutral + bad)) * 100 + " %"
-            : 0 + " %"
-        }
-      />
+      <table>
+        <tbody>
+          <Statistic name={"good"} count={good} />
+          <Statistic name={"neutral"} count={neutral} />
+          <Statistic name={"bad"} count={bad} />
+          <Statistic name={"all"} count={good + neutral + bad} />
+          <Statistic
+            name={"average"}
+            count={
+              good + neutral + bad > 0
+                ? (good - bad) / (good + neutral + bad)
+                : 0
+            }
+          />
+          <Statistic
+            name={"positive"}
+            count={
+              good + neutral + bad > 0
+                ? (good / (good + neutral + bad)) * 100 + " %"
+                : 0 + " %"
+            }
+          />
+        </tbody>
+      </table>
     </div>
   );
 };
