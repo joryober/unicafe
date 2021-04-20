@@ -4,24 +4,11 @@ const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const Statistics = ({ statistics }) => {
-  let statistics_display = statistics.map((statistic) => (
+const Statistic = ({ name, count }) => {
+  return (
     <p>
-      {statistic.name} {statistic.count}
+      {name} {count}
     </p>
-  ));
-  return statistics[0].count + statistics[1].count + statistics[2].count ===
-    0 ? (
-    <p>No feedback given</p>
-  ) : (
-    <>
-      {statistics_display[0]}
-      {statistics_display[1]}
-      {statistics_display[2]}
-      {statistics_display[3]}
-      {statistics_display[4]}
-      {statistics_display[5]}
-    </>
   );
 };
 
@@ -31,38 +18,7 @@ const App = () => {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  let statistics = [
-    {
-      name: "good",
-      count: good,
-    },
-    {
-      name: "neutral",
-      count: neutral,
-    },
-    {
-      name: "bad",
-      count: bad,
-    },
-    {
-      name: "all",
-      count: good + neutral + bad,
-    },
-    {
-      name: "average",
-      count:
-        good + neutral + bad > 0 ? (good - bad) / (good + neutral + bad) : 0,
-    },
-    {
-      name: "positive",
-      count:
-        good + neutral + bad > 0
-          ? (good / (good + neutral + bad)) * 100 + " %"
-          : 0 + " %",
-    },
-  ];
-
-  return (
+  return good + neutral + bad === 0 ? (
     <div>
       <h1>give feedback</h1>
 
@@ -71,7 +27,35 @@ const App = () => {
       <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
 
       <h1>statistics</h1>
-      <Statistics statistics={statistics} />
+      <p>No feedback given</p>
+    </div>
+  ) : (
+    <div>
+      <h1>give feedback</h1>
+
+      <Button handleClick={() => setGood(good + 1)} text={"good"} />
+      <Button handleClick={() => setNeutral(neutral + 1)} text={"neutral"} />
+      <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
+
+      <h1>statistics</h1>
+      <Statistic name={"good"} count={good} />
+      <Statistic name={"neutral"} count={neutral} />
+      <Statistic name={"bad"} count={bad} />
+      <Statistic name={"all"} count={good + neutral + bad} />
+      <Statistic
+        name={"average"}
+        count={
+          good + neutral + bad > 0 ? (good - bad) / (good + neutral + bad) : 0
+        }
+      />
+      <Statistic
+        name={"positive"}
+        count={
+          good + neutral + bad > 0
+            ? (good / (good + neutral + bad)) * 100 + " %"
+            : 0 + " %"
+        }
+      />
     </div>
   );
 };
