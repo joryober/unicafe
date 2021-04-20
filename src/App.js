@@ -5,19 +5,22 @@ const Button = ({ handleClick, text }) => {
 };
 
 const Statistics = ({ statistics }) => {
-  statistics = statistics.map((statistic) => (
+  let statistics_display = statistics.map((statistic) => (
     <p>
       {statistic.name} {statistic.count}
     </p>
   ));
-  return (
+  return statistics[0].count + statistics[1].count + statistics[2].count ===
+    0 ? (
+    <p>No feedback given</p>
+  ) : (
     <>
-      {statistics[0]}
-      {statistics[1]}
-      {statistics[2]}
-      {statistics[3]}
-      {statistics[4]}
-      {statistics[5]}
+      {statistics_display[0]}
+      {statistics_display[1]}
+      {statistics_display[2]}
+      {statistics_display[3]}
+      {statistics_display[4]}
+      {statistics_display[5]}
     </>
   );
 };
